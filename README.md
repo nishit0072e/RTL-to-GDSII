@@ -441,9 +441,9 @@ Now It will open in GDSII mode and can be saved as GDSII.
 
 Now Design is ready to sent to foundry for fabrication.
 
-### GDSII of Multimode Select Register in OpenROAD 
+### GDSII of Multimode Select Register in OpenROAD in 130nm Technology node
 ![openroad gdsii](./images/openroad_gds.png)
-### GDSII of Multimode Select Register in klayout
+### GDSII of Multimode Select Register in klayout in 130nm Technology node
 ![klayout gdsii](./images/klayout_gds.png)
 
 

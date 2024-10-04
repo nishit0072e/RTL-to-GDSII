@@ -1,6 +1,6 @@
 # RTL-to-GDSII flow
 
-```mermaid
+```
   title:
   RTL-GDSII Using OpenROAD-flow-scripts
    ____________________________________________________

@@ -1,4 +1,40 @@
-# openroad
+# RTL-to-GDSII flow
+
+```mermaid
+  title:
+  RTL-GDSII Using OpenROAD-flow-scripts
+   ____________________________________________________
+  |  ->Synthesis                                       |
+  |      : Inputs  [RTL, SDC, .lib, .lef]              |
+  |      : Logic Synthesis  (Yosys)                    |
+  |      : Output files  [Netlist, SDC]                |
+  |  ->Floorplan                                       |
+  |      : Floorplan Initialization                    |
+  |      : IO placement  (random)                      |
+  |      : Timing-driven mixed-size placement          |
+  |      : Macro placement                             |
+  |      : Tapcell and welltie insertion               |
+  |      : PDN generation                              |
+  |  ->Placement                                       |
+  |      : Global placement without placed IOs         |
+  |      : IO placement  (optimized)                   |
+  |      : Global placement with placed IOs            |
+  |      : Resizing and buffering                      |
+  |      : Detailed placement                          |
+  |  ->CTS : Clock Tree Synthesis                      |
+  |      : Timing optimization                         |
+  |      : Filler cell insertion                       |
+  |  ->Routing                                         |
+  |      : Global Routing                              |
+  |      : Detailed Routing                            |
+  |  ->Finishing                                       |
+  |      : Metal Fill insertion                        |
+  |      : Signoff timing report                       |
+  |      : Generate GDSII  (KLayout)                   |
+  |      : DRC/LVS check (KLayout)                     |
+  |____________________________________________________|
+```
+
 ```
 sudo apt-get update
 sudo apt - get update

@@ -1,0 +1,2 @@
+./ivltests/sv_end_labels_bad.v:14: error: block end label `dummy_label_bad` doesn't match block name `dummy_label`.
+./ivltests/sv_end_labels_bad.v:16: error: module end label `test_bad` doesn't match module name `test`.

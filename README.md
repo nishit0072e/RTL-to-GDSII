@@ -330,3 +330,141 @@ For power analysis using opensta
 
 
 # installation of OpenROAD tool for Generation of final GDS 
+Download OpenROAD repository
+```
+git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD.git
+cd OpenROAD
+```
+Install Dependencies
+```
+sudo ./etc/DependencyInstaller.sh
+```
+Build OpenROAD
+```
+mkdir build
+cd build
+cmake ..
+sudo make
+sudo make install
+```
+If after running "cmake" it shows error like: ``` CMake Error: Could not find CMAKE_ROOT !!! ```
+then run ``` export CMAKE_ROOT=/usr/local/share/cmake-3.16 ``` and run ``` echo $CMAKE_ROOT ```, it should reflect the path, then rerun "cmake" and agin run "make & make install" 
+
+If still any errors are occurred:
+```
+sudo apt install swig
+sudo apt update
+```
+
+Invoke OpenROAD tool from the terminal and it should be changed to ``` openroad> ```
+
+# Using OpenROAD Tool
+Script used to execute activity:
+```
+design_nangate45.tcl
+```
+# Inputs to the OpenRoad Tool
+```
+1. RTL Netlist: gcd_nangate45.v
+(Location: OpenROAD/test/gcd_nangate45.v)
+2. SDC file: gcd_nangate45.sdc
+(Location: OpenROAD/test/gcd_nangate45.sdc)
+3. Library file: Nangate45_typ.lib
+(Location: OpenROAD/test/Nangate45/Nangate45_typ.lib)
+4. LEF file
+A. Technology Lef: Nangate45_tech.lef
+(Location: OpenROAD/test/Nangate45/Nangate45_tech.lef)
+B. Standard Cell Lef: Nangate45_stdcell.lef
+(Location: OpenROAD/test/Nangate45/Nangate45_stdcell.lef)
+```
+
+write ```design_nangate45.tcl``` file 
+```
+source "helpers.tcl"
+source "flow_helpers.tcl"
+source "Nangate45/Nangate45.vars"
+set design "<design name>"
+set top_module "<design main module>"
+set synth_verilog "synth_design.v"
+set sdc_file "top.sdc"
+set die_area {0 0 100.13 100.8}
+set core_area {10.07 11.2 90.25 91}
+source -echo "flow.tcl”
+```
+
+Now all files are ready, some specific files need to copy into "OpenROAD/test" folder, this are:
+```
+design.v
+synth_design.v
+top.sdc
+design_nangate45.tcl
+```
+after copying this files into ``` OpenROAD/test``` folder, go to the same directory & invoke openroad
+for copying files from one directory to another directory is:
+```
+sudo cp -i /path/of/your/directory/<filename> /path/to/directory/to/copy/
+```
+then
+```
+openroad> sudo openroad -gui -log design_logfile.log design_nangate45.tcl 
+```
+
+Running this command it will generate ASIC layout which will be visible in openroad gui
+Now to save it as GDSII it need klayout.
+
+# installation of klayout
+```
+sudo apt install klayout
+```
+Open klayout using this command
+```
+klayout &
+```
+
+Now click on the file button and choose reader option
+then  click on "LEF/DEF" tab, there "Nangate45.lef" file need to be put and uncheck the checkbox(if checked) or remain same
+location of "Nangate45.lef" is
+```
+/OpenROAD/test/Nangate45/Nangate45.lef
+```
+then click ok.
+After that click again on file and choose open, now a dialogue box will open, navigate to
+```
+/OpenROAD/test/result
+```
+There ```design.def``` file will be located, click on the def file and click on ok.
+Now It will open in GDSII mode and can be saved as GDSII.
+
+Now Design is ready to sent to foundry for fabrication.
+
+# Reference 
+```
+[1] Installation steps for The ICARUS Verilog Compilation System. [Online]. Available:
+https://github.com/steveicarus/iverilog
+
+[2] Installation steps for Covered - Verilog Code Coverage Analyzer. [Online]. Available:
+https://github.com/chiphackers/covered/blob/master/INSTALL
+
+[3] S. Saurabh, Introduction to VLSI Design Flow. Cambridge: Cambridge University Press,
+2023.
+
+[4] Installation steps for Yosys Open SYnthesis Suite. [Online]. Available: https:
+//github.com/YosysHQ/yosys
+
+[5] S. Saurabh, Introduction to VLSI Design Flow. Cambridge: Cambridge University Press,
+2023.
+
+[6] Yosys: Example Usage. [Online]. Available: https://yosyshq.net/yosys/
+
+[7] Documentation for Yosys Open SYnthesis Suite commands. [Online]. Available:
+https://yosyshq.readthedocs.io/projects/yosys/en/manual-rewrite/cmd ref.html
+
+[8] Ajayi, Tutu, Vidya A. Chhabria, Mateus Fogaça, Soheil Hashemi, Abdelrahman Hosny,
+Andrew B. Kahng, Minsoo Kim et al. "Toward an open-source digital flow: First learnings
+from the openroad project." In Proceedings of the 56th Annual Design Automation
+Conference 2019, pp. 1-4. 2019.
+
+[9] Ajayi, Tutu, and David Blaauw. "OpenROAD: Toward a self-driving, open-source digital
+layout implementation tool chain." In Proceedings of Government Microcircuit
+Applications and Critical Technology Conference. 2019.
+

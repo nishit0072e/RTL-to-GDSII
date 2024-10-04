@@ -183,3 +183,104 @@ after install try invoking yosys like: ```./yosys```
 The tool launches, and the command prompt changes to
 ```yosys>```
 
+# Using yosys to synthsize design 
+
+Here i have given the library file named ```Nangate45_typ.lib```
+
+to synthesize any verilog source file using yosys this library file must be included in the tcl automation script.
+
+make a file named ```yosys_commands.tcl``` and put this lines into the file and save.
+```
+#Read modules from verilog
+read_verilog counter.v
+
+#Elaborate design hierarchy
+hierarchy −check −top Mycounter
+
+#Translate Processes to netlist
+proc
+
+#mapping to the internal cell library
+techmap
+
+#mapping flip-flops to Nangate45_typ.lib
+dfflibmap −liberty Nangate45_typ.lib
+
+#mapping logic to Nangate45_typ.lib
+abc -liberty Nangate45_typ.lib
+
+#remove unused cells
+clean
+
+#write the synthesized design in a verilog file
+write_verilog −noattr synth_Mycounter.v
+``` 
+This TCL script should be run, after yosys is invoked. This will automate the synthesize process and write the synthesized netlist from the source verilog file
+
+# Steps to perform the logic synthesis & optimization
+Launch the yosys tool
+```$ yosys```
+I am using a yosys_commands.tcl file.
+```yosys> script yosys_commands.tcl```
+
+similarly run the given ```not_opt.tcl``` and ```opt.tcl``` scripts for viewing the non-optimized block diagram and optimized block diagrams respectively in graphviz(xdot) window
+ 
+# installation OpenSTA tool for timing and power analysis
+```
+sudo apt-get update
+sudo apt-get install build-essential tcl-dev tk-dev cmake git
+
+git clone https://github.com/The-OpenROAD-Project/OpenSTA.git
+cd OpenSTA
+mkdir build
+cd build
+cmake ..
+```
+If error comes like ```Cmake error at CMakelists.txt``` then move to home directory using "cd" command and install
+ ```
+ sudo apt-get install libeigen3-dev
+ ```
+again move to the build directory in OpenSTA and Configure the build by executing the
+following command:
+```
+cmake ..
+```
+If again any CMake error then again move to home directory and install cudd.
+```
+git clone https://github.com/ivmai/cudd.git
+sudo apt-get install automake
+sudo apt-get install autoconf m4 perl
+
+cd cudd
+autoreconf -i
+mkdir build
+cd build
+../configure --prefix=$HOME/cudd
+sudo make
+sudo make install
+
+```
+Now cudd is installed successfully.
+Now move to opensta directory
+```
+cd OpenSTA
+cd build
+cmake .. -DUSE_CUDD=ON -DCUDD_DIR=$HOME/cudd
+sudo make
+sudo make install 
+```
+
+Now invoke opensta from the terminal by simply type "sta" and press enter it changed the prompt to 
+```
+sta [~/working_directory]
+
+or, 
+it will be shown like 
+
+%
+```
+
+# using opensta for timing and power analysis
+after successful installation of opensta run the ```time.tcl``` to analyse the timing of inputs and outputs. After that run ```power.tcl``` to analyse the power dissipation by the designed circuit
+
+# installation of OpenROAD tool for Generation of final GDS 

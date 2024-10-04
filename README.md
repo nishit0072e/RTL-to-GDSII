@@ -1,7 +1,11 @@
 # RTL-to-GDSII flow
+OpenROAD is the leading open-source, foundational application for semiconductor digital design. The OpenROAD flow delivers an Autonomous, No-Human-In-Loop (NHIL) flow, 24 hour turnaround from RTL-GDSII for rapid design exploration and physical design implementation.
+### I am using Ubuntu-24.04 on WSL(Windows Subsystem for linux) and using VsCode for writing and editing Verilog codes and automation scripts, if you want to work on WSL then install WSL properly in Windows 10/11 and flow this method, then you are good to go
+
+### For standalone Ubuntu installation this also works fine
 
 ```
-  title:
+  Title:
   RTL-GDSII flow Using OpenROAD
    ____________________________________________________
   |  ->Synthesis                                       |
@@ -436,6 +440,12 @@ There ```design.def``` file will be located, click on the def file and click on 
 Now It will open in GDSII mode and can be saved as GDSII.
 
 Now Design is ready to sent to foundry for fabrication.
+
+### GDSII of Multimode Select Register in OpenROAD 
+![openroad gdsii](./images/openroad_gds.png)
+### GDSII of Multimode Select Register in klayout
+![klayout gdsii](./images/klayout_gds.png)
+
 
 # Reference 
 ```

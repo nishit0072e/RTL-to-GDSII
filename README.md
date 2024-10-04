@@ -2,7 +2,7 @@
 
 ```
   title:
-  RTL-GDSII Using OpenROAD-flow-scripts
+  RTL-GDSII flow Using OpenROAD
    ____________________________________________________
   |  ->Synthesis                                       |
   |      : Inputs  [RTL, SDC, .lib, .lef]              |

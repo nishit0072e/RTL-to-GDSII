@@ -317,6 +317,16 @@ it will be shown like
 ```
 
 # using opensta for timing and power analysis
-after successful installation of opensta run the ```time.tcl``` to analyse the timing of inputs and outputs. After that run ```power.tcl``` to analyse the power dissipation by the designed circuit
+after successful installation of opensta run the ```time.tcl``` to analyse the timing of inputs and outputs, After that run ```power.tcl``` to analyse the power dissipation by the designed circuit.
+
+For time analysis using opensta
+```
+% source time.tcl
+```
+For power analysis using opensta
+```
+% source power.tcl
+```
+
 
 # installation of OpenROAD tool for Generation of final GDS 

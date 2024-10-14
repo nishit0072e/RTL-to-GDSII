@@ -2,7 +2,7 @@
 OpenROAD is the leading open-source, foundational application for semiconductor digital design. The OpenROAD flow delivers an Autonomous, No-Human-In-Loop (NHIL) flow, 24 hour turnaround from RTL-GDSII for rapid design exploration and physical design implementation.
 ### I am using Ubuntu-24.04 on WSL(Windows Subsystem for linux) and using VsCode for writing and editing Verilog codes and automation scripts, if you want to work on WSL then install WSL properly in Windows 10/11 and flow this method, then you are good to go
 
-## For PDF's, click here, [Google Drive], (https://drive.google.com/drive/u/0/folders/1R5g80_2vsLyNkqTgExah--MmyJZfzvo_)
+## For PDF's, click in this [Google Drive](https://drive.google.com/drive/folders/1spxsga2DoTfBv6mQmGx8tbPThoIE2NJL?usp=sharing) link
 ### For standalone Ubuntu installation this also works fine
 
 ```

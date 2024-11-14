@@ -353,7 +353,7 @@ sudo make
 sudo make install
 ```
 If after running "cmake" it shows error like: ``` CMake Error: Could not find CMAKE_ROOT !!! ```
-then run ``` export CMAKE_ROOT=/usr/local/share/cmake-3.16 ``` and run ``` echo $CMAKE_ROOT ```, it should reflect the path, then rerun "cmake" and agin run "make & make install" 
+then run ``` export PATH=/usr/local/bin/cmake:$PATH``` and run ``` echo $CMAKE_ROOT ```, it should reflect the path, then rerun "cmake" and agin run "make & make install" 
 
 If still any errors are occurred:
 ```

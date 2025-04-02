@@ -3,6 +3,7 @@ OpenROAD is the leading open-source, foundational application for semiconductor 
 ### I am using Ubuntu-24.04 on WSL(Windows Subsystem for linux) and using VsCode for writing and editing Verilog codes and automation scripts, if you want to work on WSL then install WSL properly in Windows 10/11 and flow this method, then you are good to go
 
 ## For PDF's, click in this [![Google Drive](https://img.shields.io/badge/Google%20Drive-Download-orange?logo=google-drive&logoColor=green)](https://drive.google.com/drive/folders/1spxsga2DoTfBv6mQmGx8tbPThoIE2NJL?usp=sharing)
+## For Lectures, click in this [![Lectures](https://img.shields.io/badge/Google%20Drive-Download-orange?logo=google-drive&logoColor=orange)](https://drive.google.com/drive/folders/1qQm4CyQvWTMSUL4-o7MQIV9Fb9mtW59e?usp=sharing)
 ### For standalone Ubuntu installation this also works fine
 
 ## To not enounter any error during the process, click [![download.sh](https://img.shields.io/badge/download.sh-Download-blue)](https://github.com/nishit0072e/RTL-to-GDSII/blob/main/download.sh), to download all the dependencies and files

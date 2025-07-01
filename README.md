@@ -8,40 +8,73 @@ OpenROAD is the leading open-source, foundational application for semiconductor 
 
 ## To not enounter any error during the process, click [![download.sh](https://img.shields.io/badge/download.sh-Download-blue)](https://github.com/nishit0072e/RTL-to-GDSII/blob/main/download.sh), to download all the dependencies and files
 
+### 📦 How to Use
+
+Clone the repository (if not already done):
+
+   ```bash
+   git clone https://github.com/nishit0072e/RTL-to-GDSII.git
+   cd RTL-to-GDSII
 ```
-  Title:
-  RTL-GDSII flow Using OpenROAD
-   ____________________________________________________
-  |  ->Synthesis                                       |
-  |      : Inputs  [RTL, SDC, .lib, .lef]              |
-  |      : Logic Synthesis  (Yosys)                    |
-  |      : Output files  [Netlist, SDC]                |
-  |  ->Floorplan                                       |
-  |      : Floorplan Initialization                    |
-  |      : IO placement  (random)                      |
-  |      : Timing-driven mixed-size placement          |
-  |      : Macro placement                             |
-  |      : Tapcell and welltie insertion               |
-  |      : PDN generation                              |
-  |  ->Placement                                       |
-  |      : Global placement without placed IOs         |
-  |      : IO placement  (optimized)                   |
-  |      : Global placement with placed IOs            |
-  |      : Resizing and buffering                      |
-  |      : Detailed placement                          |
-  |  ->CTS : Clock Tree Synthesis                      |
-  |      : Timing optimization                         |
-  |      : Filler cell insertion                       |
-  |  ->Routing                                         |
-  |      : Global Routing                              |
-  |      : Detailed Routing                            |
-  |  ->Finishing                                       |
-  |      : Metal Fill insertion                        |
-  |      : Signoff timing report                       |
-  |      : Generate GDSII  (KLayout)                   |
-  |      : DRC/LVS check (KLayout)                     |
-  |____________________________________________________|
+```bash
+chmod +x download.sh
 ```
+```bash
+./download.sh
+```
+
+---
+
+### 🧰 Features
+
+| Feature                              | Status                 |
+|--------------------------------------|------------------------|
+| ✅ Fully automated setup             | ✔️ Yes                 |
+| ✅ Handles `CMAKE_ROOT` bug          | ✔️ Fixed               |
+| ✅ Handles Tcl issue in `covered`    | ✔️ Patched with macro  |
+| ✅ CUDD installed before OpenSTA     | ✔️ Yes                 |
+| ✅ GTKWave and KLayout support       | ✔️ Installed           |
+| ✅ Logs saved                        | ✔️ In `download.log` |
+| ✅ No manual intervention needed     | ✔️ 100% hands-free     |
+
+
+## Title:
+RTL-GDSII flow Using OpenROAD
+```mermaid
+%%{init: { 'logLevel': 'debug', 'theme': 'dark'
+  } }%%
+timeline
+  
+  Synthesis
+    : Inputs  [RTL, SDC, .lib, .lef]
+    : Logic Synthesis  (Yosys)
+    : Output files  [Netlist, SDC]
+  Floorplan
+    : Floorplan Initialization
+    : IO placement  (random)
+    : Timing-driven mixed-size placement
+    : Macro placement
+    : Tapcell and welltie insertion
+    : PDN generation
+  Placement
+    : Global placement without placed IOs
+    : IO placement  (optimized)
+    : Global placement with placed IOs
+    : Resizing and buffering
+    : Detailed placement
+  CTS : Clock Tree Synthesis
+    : Timing optimization
+    : Filler cell insertion
+  Routing
+    : Global Routing
+    : Detailed Routing
+  Finishing
+    : Metal Fill insertion
+    : Signoff timing report
+    : Generate GDSII  (KLayout)
+    : DRC/LVS check (KLayout)
+```
+
 
 ```
 sudo apt-get update

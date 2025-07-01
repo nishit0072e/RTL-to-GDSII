@@ -1,79 +1,95 @@
-sudo apt-get update
-sudo apt-get update
-sudo apt-get install gperf
-sudo apt-get install autoconf
-sudo apt-get install gcc g ++
-sudo apt-get install flex
-sudo apt-get install bison
+#!/bin/bash
+mkdir ost
+cd ost
+set -euo pipefail
+LOG=setup_rtl2gdsii.log
+touch $LOG
 
-# install icarus verilog and gtkwave
-wget https://github.com/steveicarus/iverilog/archive/refs/tags/v12_0.tar.gz
+echo "🔧 Updating and installing base packages..." | tee -a $LOG
+sudo apt update && sudo apt upgrade -y | tee -a $LOG
+sudo apt install -y build-essential git cmake g++ gcc autoconf automake m4 perl \
+  flex bison gperf zlib1g-dev libffi-dev libreadline-dev gawk pkg-config \
+  tcl8.6 tcl8.6-dev tk8.6 tk8.6-dev python3 doxygen wget curl unzip \
+  libboost-system-dev libboost-python-dev libboost-filesystem-dev \
+  swig libeigen3-dev libiconv-hook-dev graphviz xdot | tee -a $LOG
 
-tar -xvzf v12_0.tar.gz
+# -------------------------
+# Icarus Verilog + GTKWave
+# -------------------------
+echo "🔧 Installing Icarus Verilog..." | tee -a $LOG
+wget -q https://github.com/steveicarus/iverilog/archive/refs/tags/v12_0.tar.gz
+tar -xzf v12_0.tar.gz && cd iverilog-12_0
+sh autoconf.sh && ./configure
+make -j$(nproc) | tee -a ../$LOG && sudo make install
+cd .. && sudo apt install -y gtkwave
 
-cd iverilog-12_0
-sh autoconf.sh
-./configure
+# -------------------------
+# Covered + automatic fix
+# -------------------------
+echo "🔧 Installing Covered..." | tee -a $LOG
+git clone https://github.com/chiphackers/covered.git && cd covered
+./configure || true
+# Patch if needed
+if ! grep -q "USE_INTERP_RESULT" src/report.c; then
+  sed -i '/#include <tcl.h>/i #define USE_INTERP_RESULT 1' src/report.c
+fi
+make -j$(nproc) && sudo make install
+cd ..
 
-sudo make
-sudo make install
+# -------------------------
+# Yosys
+# -------------------------
+echo "🔧 Installing Yosys..." | tee -a $LOG
+git clone --recursive https://github.com/YosysHQ/yosys.git && cd yosys
+make -j$(nproc) && sudo make install
+cd ..
 
-cd 
+# -------------------------
+# CUDD (for OpenSTA)
+# -------------------------
+echo "🔧 Installing CUDD..." | tee -a $LOG
+git clone https://github.com/ivmai/cudd.git && cd cudd
+autoreconf -i && mkdir build && cd build
+../configure --prefix=$HOME/cudd && make -j$(nproc) && sudo make install
+cd ../..
 
-sudo apt install gtkwave
+# -------------------------
+# OpenSTA with CUDD
+# -------------------------
+echo "🔧 Installing OpenSTA..." | tee -a $LOG
+git clone https://github.com/The-OpenROAD-Project/OpenSTA.git && cd OpenSTA
+mkdir build && cd build
+cmake .. -DUSE_CUDD=ON -DCUDD_DIR=$HOME/cudd || {
+  export CMAKE_ROOT=/usr/share/cmake-3.28/Modules
+  cmake .. -DUSE_CUDD=ON -DCUDD_DIR=$HOME/cudd
+}
+make -j$(nproc) && sudo make install
+cd ../..
 
-sudo apt update
-sudo apt-get install zlib1g-dev
-git clone https://git.savannah.gnu.org/git/libiconv.git
-
-sudo apt-get install tcl8.6
-sudo apt-get install tcl8.6-dev
-sudo apt-get install tk8.6
-sudo apt-get install tk8.6-dev
-sudo apt-get install doxygen
-
-git clone https://github.com/chiphackers/covered
-
-#install yosys
-
-sudo apt-get install -y build-essential clang bison flex libreadline-dev gawk tcl-dev libffi-dev git graphviz xdot pkg-config python3 libboost-system-dev libboost-python-dev libboost-filesystem-dev zlib1g-dev
-
-git clone --recursive https://github.com/YosysHQ/yosys.git
-cd
-#install opensta
-
-sudo apt-get update
-sudo apt-get install -y build-essential tcl-dev tk-dev cmake git
-
-git clone https://github.com/The-OpenROAD-Project/OpenSTA.git
-
-sudo apt-get install libeigen3-dev
-
-cd
-git clone https://github.com/ivmai/cudd.git
-sudo apt-get install -y automake
-sudo apt-get install -y autoconf m4 perl
-
-sudo apt install -y swig
-sudo apt update
-
-#install openroad
-
+# -------------------------
+# OpenROAD
+# -------------------------
+echo "🔧 Installing OpenROAD..." | tee -a $LOG
 git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD.git
 cd OpenROAD
+sudo ./etc/DependencyInstaller.sh | tee -a ../$LOG
+mkdir -p build && cd build
+cmake .. || {
+  export CMAKE_ROOT=/usr/share/cmake-3.28/Modules
+  cmake ..
+}
+make -j$(nproc) && sudo make install
+cd ../..
 
-sudo ./etc/DependencyInstaller.sh
-cd 
-#install klayout
-wget https://www.klayout.org/downloads/Ubuntu-24/klayout_0.29.8-1_amd64.deb
+# -------------------------
+# KLayout 
+# -------------------------
+echo "🔧 Installing KLayout..." | tee -a $LOG
+wget -q https://www.klayout.org/downloads/Ubuntu-24/klayout_0.29.8-1_amd64.deb
 chmod +x klayout_0.29.8-1_amd64.deb
+sudo apt install -y ./klayout_0.29.8-1_amd64.deb
 
-sudo apt install ./klayout_0.29.8-1_amd64.deb
-
-cd
-
-sudo apt update
-
-sudo apt upgrade
-
-echo " yosys, opensta, openroad, cudd, covered is downloaded. Please install those using readme https://github.com/nishit0072e/RTL-to-GDSII/blob/main/README.md "
+# -------------------------
+# Final Checks
+# -------------------------
+echo "✅ Installation complete. Logs saved in download.log"

@@ -1,3 +1,10 @@
+[![GitHub forks](https://img.shields.io/github/forks/nishit0072e/RTL-to-GDSII)](https://github.com/nishit0072e/RTL-to-GDSII/network)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/fossee/esim)
+![GitHub contributors](https://img.shields.io/github/contributors/nishit0072e/RTL-to-GDSII)
+[![Google Drive](https://img.shields.io/badge/Google%20Drive-Download-orange?logo=google-drive&logoColor=green)](https://drive.google.com/drive/folders/1spxsga2DoTfBv6mQmGx8tbPThoIE2NJL?usp=sharing)
+[![download.sh](https://img.shields.io/badge/download.sh-Download-blue)](https://github.com/nishit0072e/RTL-to-GDSII/blob/main/download.sh)
+[![Makefile](https://img.shields.io/badge/Makefile-Download-green)](https://github.com/nishit0072e/RTL-to-GDSII/blob/main/Makefile)
+
 # RTL-to-GDSII flow
 OpenROAD is the leading open-source, foundational application for semiconductor digital design. The OpenROAD flow delivers an Autonomous, No-Human-In-Loop (NHIL) flow, 24 hour turnaround from RTL-GDSII for rapid design exploration and physical design implementation.
 ### I am using Ubuntu-24.04 on WSL(Windows Subsystem for linux) and using VsCode for writing and editing Verilog codes and automation scripts, if you want to work on WSL then install WSL properly in Windows 10/11 and flow this method, then you are good to go

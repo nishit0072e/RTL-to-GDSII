@@ -5,7 +5,7 @@ all: dependencies
 	@echo "All dependencies are installed, now proceed to install tools."
 
 # Install all dependencies and tools
-all-tools: dependencies bambu iverilog covered yosys sta openroad
+all_tools: dependencies bambu iverilog covered yosys sta openroad
 	@echo "Bambu HLS installation Successful, test with:"
 	@echo "./bambu-0.9.7.AppImage <path-to-c-file> --top-fname=<accelerator-function-to-be-implemented-in-hardware>"
 	@echo "Icarus Verilog, COVERED, GTKWave, Yosys, OpenSTA, OpenROAD installation Successful, test them one by one by running names in terminal"
@@ -78,4 +78,4 @@ openroad:
 clean:
 	rm -rf iverilog covered yosys OpenSTA OpenROAD bambu-0.9.7.AppImage
 
-.PHONY: all all-tools dependencies bambu iverilog covered yosys sta openroad clean
+.PHONY: all all_tools dependencies bambu iverilog covered yosys sta openroad clean

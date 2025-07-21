@@ -6,7 +6,7 @@ OpenROAD is the leading open-source, foundational application for semiconductor 
 
 ### For standalone Ubuntu installation this also works fine
 
-## To not enounter any error during the process, click [![download.sh](https://img.shields.io/badge/download.sh-Download-blue)](https://github.com/nishit0072e/RTL-to-GDSII/blob/main/download.sh), to download all the dependencies and files or You can use the [![Makefile](https://img.shields.io/badge/download.sh-Download-blue)](https://github.com/nishit0072e/RTL-to-GDSII/blob/main/Makefile)
+## To not enounter any error during the process, click [![download.sh](https://img.shields.io/badge/download.sh-Download-blue)](https://github.com/nishit0072e/RTL-to-GDSII/blob/main/download.sh), to download all the dependencies and files or You can use the [![Makefile](https://img.shields.io/badge/Makefile-Download-green)](https://github.com/nishit0072e/RTL-to-GDSII/blob/main/Makefile)
 
 ### 📦 How to Use
 
